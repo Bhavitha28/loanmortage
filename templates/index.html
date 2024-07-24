@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Interest Rate</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa; 
+            font-family: Arial, sans-serif; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;         }
+
+        .form-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); 
+            padding: 100px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #343a40; 
+            text-align: center;
+        }
+
+        .form-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #495057; 
+        }
+
+        .form-select {
+            border-radius: 0.25rem;
+            border: 1px solid #ced4da; 
+            padding: 0.75rem 1.25rem; 
+            font-size: 1rem; 
+        }
+
+        .form-select:focus {
+            border-color: #007bff; 
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25); 
+        }
+
+        .btn-primary {
+            background-color: #007bff; 
+            border-color: #007bff;
+            font-size: 1.1rem; 
+            padding: 0.75rem 1.25rem; 
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3; 
+            border-color: #004080;
+        }
+
+        .alert-info {
+            font-size: 1.2rem;
+            background-color: #d1ecf1; 
+            color: #0c5460; 
+            border-color: #bee5eb; 
+        }
+
+        .mb-3 {
+            margin-bottom: 1.5rem; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>Predict Interest Rate</h1>
+            <form id="predict-form" onsubmit="handleSubmit(event)">
+                <div class="mb-3">
+                    <label for="Loan_Amount_Requested" class="form-label">Loan Amount Requested:</label>
+                    <select id="Loan_Amount_Requested" name="Loan_Amount_Requested" class="form-select">
+                        <option value="">Select an option</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="Annual_Income" class="form-label">Annual Income:</label>
+                    <select id="Annual_Income" name="Annual_Income" class="form-select">
+                        <option value="">Select an option</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="Debt_To_Income" class="form-label">Debt To Income:</label>
+                    <select id="Debt_To_Income" name="Debt_To_Income" class="form-select">
+                        <option value="">Select an option</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="Inquiries_Last_6Mo" class="form-label">Inquiries Last 6 Months:</label>
+                    <select id="Inquiries_Last_6Mo" name="Inquiries_Last_6Mo" class="form-select">
+                        <option value="">Select an option</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="Number_Open_Accounts" class="form-label">Number Open Accounts:</label>
+                    <select id="Number_Open_Accounts" name="Number_Open_Accounts" class="form-select">
+                        <option value="">Select an option</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="Total_Accounts" class="form-label">Total Accounts:</label>
+                    <select id="Total_Accounts" name="Total_Accounts" class="form-select">
+                        <option value="">Select an option</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="loan_income_ratio" class="form-label">Loan Income Ratio:</label>
+                    <select id="loan_income_ratio" name="loan_income_ratio" class="form-select">
+                        <option value="">Select an option</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="total_income_ratio" class="form-label">Total Income Ratio:</label>
+                    <select id="total_income_ratio" name="total_income_ratio" class="form-select">
+                        <option value="">Select an option</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="debt_income_ratio" class="form-label">Debt Income Ratio:</label>
+                    <select id="debt_income_ratio" name="debt_income_ratio" class="form-select">
+                        <option value="">Select an option</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="Length_Employed" class="form-label">Length Employed:</label>
+                    <select id="Length_Employed" name="Length_Employed" class="form-select">
+                        <option value="">Select an option</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="Income_Verified" class="form-label">Income Verified:</label>
+                    <select id="Income_Verified" name="Income_Verified" class="form-select">
+                        <option value="">Select an option</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="Purpose_Of_Loan" class="form-label">Purpose Of Loan:</label>
+                    <select id="Purpose_Of_Loan" name="Purpose_Of_Loan" class="form-select">
+                        <option value="">Select an option</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Predict</button>
+            </form>
+
+            <div id="result" class="mt-4 alert alert-info" role="alert">
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JavaScript and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('/dropdown-options')
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Dropdown options data:", data);  
+                    Object.keys(data).forEach(column => {
+                        const select = document.getElementById(column);
+                        if (select) {
+                            select.innerHTML = '';  // Clear existing options
+                            data[column].forEach(value => {
+                                const option = document.createElement('option');
+                                option.value = value;
+                                option.text = value;
+                                select.appendChild(option);
+                            });
+                        } else {
+                            console.error(`Dropdown with id ${column} not found`);  
+                        }
+                    });
+                })
+                .catch(error => console.error('Error fetching dropdown options:', error));
+        });
+
+        function handleSubmit(event) {
+            event.preventDefault();  
+
+            const formData = new FormData(document.getElementById('predict-form'));
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.error) {
+                    alert(`Error: ${result.error}`);
+                } else {
+                    
+                    document.getElementById('result').innerText = `Predicted Interest Rate: ${result.Predicted_Interest_Rate}`;
+                }
+            })
+            .catch(error => console.error('Error predicting interest rate:', error));
+        }
+    </script>
+</body>
+</html>

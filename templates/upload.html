@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Form</title>
+</head>
+<body>
+    <h1>Upload Form</h1>
+    <form method="post">
+        {% for column, options in dropdown_options.items() %}
+            <label for="{{ column }}">{{ column.replace('_', ' ') }}:</label>
+            <select name="{{ column }}" id="{{ column }}">
+                <option value="">Select</option>
+                {% for option in options %}
+                    <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+        {% endfor %}
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

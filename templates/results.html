@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+</head>
+<body>
+    <h1>Prediction Result</h1>
+    <p id="result"></p>
+    <a href="index.html">Go Back</a>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Extract the prediction from the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const prediction = urlParams.get('prediction');
+
+            if (prediction) {
+                document.getElementById('result').innerText = `Predicted Interest Rate: ${prediction}`;
+            } else {
+                document.getElementById('result').innerText = 'No prediction available.';
+            }
+        });
+    </script>
+</body>
+</html>
